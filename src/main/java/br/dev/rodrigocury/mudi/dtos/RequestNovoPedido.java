@@ -2,9 +2,14 @@ package br.dev.rodrigocury.mudi.dtos;
 
 import br.dev.rodrigocury.mudi.model.Pedido;
 
+import javax.validation.constraints.NotBlank;
+
 public class RequestNovoPedido {
+    @NotBlank(message = "O nome não pode ser vazio")
     private String nome;
+    @NotBlank(message = "A URL não pode ser vazia nem inválida")
     private String  urlDoProduto;
+    @NotBlank(message = "A URL não pode ser vazia nem inválida")
     private String urlImagem;
     private String descricao;
 
