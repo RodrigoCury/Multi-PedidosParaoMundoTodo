@@ -1,6 +1,7 @@
 package br.dev.rodrigocury.mudi.dtos;
 
 import br.dev.rodrigocury.mudi.model.Pedido;
+import br.dev.rodrigocury.mudi.model.StatusPedido;
 
 import javax.validation.constraints.NotBlank;
 
@@ -46,6 +47,6 @@ public class RequestNovoPedido {
     }
 
     public Pedido toPedido(){
-        return new Pedido(nome, urlDoProduto, urlImagem, descricao);
+        return new Pedido(nome, urlDoProduto, urlImagem, descricao, StatusPedido.AGUARDANDO);
     }
 }
