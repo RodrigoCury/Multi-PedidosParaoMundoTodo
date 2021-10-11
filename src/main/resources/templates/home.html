@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+  <div>
+      <div th:text="${nomeDoProduto}">Nome do Produto</div>
+      <div>Valor: <span th:text="${valorDoProduto}"></span></div>
+      <div>Data de Entrega: <span th:text="${dataEntregaDoProduto}"></span></div>
+      <div><a th:href="${urlDoProduto}">Produto</a></div>
+      <div></div>
+      <div>
+          <textarea th:text="${descricaoDoProduto}" ></textarea>
+      </div>
+      <div>
+          <img th:src="${imgDoProduto}" alt="" style="max-width: 50px"/>
+      </div>
+  </div>
+</body>
+</html>
