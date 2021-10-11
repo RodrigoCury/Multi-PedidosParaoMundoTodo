@@ -5,17 +5,17 @@
     <title>Home</title>
 </head>
 <body>
-  <div>
-      <div th:text="${nomeDoProduto}">Nome do Produto</div>
-      <div>Valor: <span th:text="${valorDoProduto}"></span></div>
-      <div>Data de Entrega: <span th:text="${dataEntregaDoProduto}"></span></div>
-      <div><a th:href="${urlDoProduto}">Produto</a></div>
+  <div th:each="pedido : ${pedidos}">
+      <div th:text="${pedido.nome}">Nome do Produto</div>
+      <div>Valor: <span th:text="${pedido.valor}"></span></div>
+      <div>Data de Entrega: <span th:text="${pedido.dataEntrega}"></span></div>
+      <div><a th:href="${pedido.urlDoProduto}">Produto</a></div>
       <div></div>
       <div>
-          <textarea th:text="${descricaoDoProduto}" ></textarea>
+          <textarea th:text="${pedido.descricao}" ></textarea>
       </div>
       <div>
-          <img th:src="${imgDoProduto}" alt="" style="max-width: 50px"/>
+          <img th:src="${pedido.urlImagem}" alt="" style="max-width: 50px"/>
       </div>
   </div>
 </body>
