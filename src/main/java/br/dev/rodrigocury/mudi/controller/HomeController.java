@@ -20,6 +20,6 @@ public class HomeController {
         List<Pedido> pedidos = (List<Pedido>) pedidoRepository.findAll();
 
         model.addAttribute("pedidos", pedidos);
-        return "home";
+        return "pedido/home";
     }
 }

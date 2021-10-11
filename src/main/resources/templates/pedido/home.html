@@ -7,6 +7,16 @@
 </head>
 <body>
 <div class="container">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-primary d-flex justify-content-between mb-3">
+        <a class="navbar-brand" href="#">Meus Produtos</a>
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/?query=all">Todos</a>
+            <a class="nav-item nav-link" href="/?query=waiting">Aguardando</a>
+            <a class="nav-item nav-link" href="/?query=approved">Aprovado</a>
+            <a class="nav-item nav-link" href="/?query=delivered">Entregue</a>
+        </div>
+        <a href="/pedido/formulario"><button type="button" class="btn btn-outline-success">Novo</button></a>
+    </nav>
 
   <div class="card mb-2" th:each="pedido : ${pedidos}">
       <div class="card-header alert alert-primary">
