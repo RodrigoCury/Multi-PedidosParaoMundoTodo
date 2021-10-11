@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/api")
-public class PedidoController {
+public class ApiPedidoController {
 
     @Autowired
     PedidoRepository pedidoRepository;
