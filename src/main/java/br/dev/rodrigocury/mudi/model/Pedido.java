@@ -29,6 +29,13 @@ public class Pedido {
         this.urlImagem = urlImagem;
     }
 
+    public Pedido(String nome, String urlDoProduto, String urlImagem, String descricao) {
+        this.nome = nome;
+        this.urlDoProduto = urlDoProduto;
+        this.descricao = descricao;
+        this.urlImagem = urlImagem;
+    }
+
     public Integer getId() {
         return id;
     }
