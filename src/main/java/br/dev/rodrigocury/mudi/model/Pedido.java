@@ -17,6 +17,9 @@ public class Pedido {
     private String descricao;
     private String urlImagem;
 
+    @Enumerated(EnumType.STRING)
+    private StatusPedido status;
+
     public Pedido() {
     }
 
@@ -29,11 +32,12 @@ public class Pedido {
         this.urlImagem = urlImagem;
     }
 
-    public Pedido(String nome, String urlDoProduto, String urlImagem, String descricao) {
+    public Pedido(String nome, String urlDoProduto, String urlImagem, String descricao, StatusPedido status) {
         this.nome = nome;
         this.urlDoProduto = urlDoProduto;
         this.descricao = descricao;
         this.urlImagem = urlImagem;
+        this.status = status;
     }
 
     public Integer getId() {
@@ -90,5 +94,13 @@ public class Pedido {
 
     public void setUrlImagem(String urlImagem) {
         this.urlImagem = urlImagem;
+    }
+
+    public StatusPedido getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusPedido status) {
+        this.status = status;
     }
 }
