@@ -16,9 +16,18 @@
     </nav>
 
   <div class="card mb-2" th:each="pedido : ${pedidos}">
-      <div class="card-header alert alert-primary">
-          <a th:href="${pedido.urlDoProduto}" th:text="${pedido.nome}" />
-      </div>
+      <th:block th:switch="${pedido.status.name()}">
+          <div th:case="'AGUARDANDO'" class="card-header alert alert-warning">
+              <a th:href="${pedido.urlDoProduto}" th:text="${pedido.nome}" />
+          </div>
+          <div th:case="'APROVADO'" class="card-header alert alert-success">
+              <a th:href="${pedido.urlDoProduto}" th:text="${pedido.nome}" />
+          </div>
+          <div th:case="'ENTREGUE'" class="card-header alert alert-dark">
+              <a th:href="${pedido.urlDoProduto}" th:text="${pedido.nome}" />
+          </div>
+      </th:block>
+
       <div class="card-body">
           <div class="row">
               <div class="col-12 col-sm-8">
