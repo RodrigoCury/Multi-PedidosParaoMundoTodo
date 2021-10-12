@@ -6,39 +6,34 @@ import br.dev.rodrigocury.mudi.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 @Controller
+@RequestMapping("/")
 public class HomeController {
 
     @Autowired
     PedidoRepository pedidoRepository;
 
-    @GetMapping("/")
-    public String home(Model model, @RequestParam(name = "query", required = false) String query){
-        List<Pedido> pedidos = null;
+    @GetMapping
+    public String home(Model model){
+        model.addAttribute("pedidos", pedidoRepository.findAll());
+        return "pedido/home";
+    }
 
-        switch (query != null ? query : ""){
-            case "waiting" -> {
-                pedidos = (List<Pedido>) pedidoRepository.findByStatus(StatusPedido.AGUARDANDO);
-            }
-            case "approved" -> {
-                pedidos = (List<Pedido>) pedidoRepository.findByStatus(StatusPedido.APROVADO);
-            }
-            case "delivered" -> {
-                pedidos = (List<Pedido>) pedidoRepository.findByStatus(StatusPedido.ENTREGUE);
-            }
-            default -> {
-                pedidos = (List<Pedido>) pedidoRepository.findAll();
-            }
-        }
-
-
-
+    @GetMapping("/{status}")
+    public String filtrarPorStatus(@PathVariable(value = "status", required = true) String status, Model model){
+        List<Pedido> pedidos = pedidoRepository.findByStatus(StatusPedido.valueOf(status.toUpperCase()));
+        model.addAttribute("status", status.toLowerCase());
         model.addAttribute("pedidos", pedidos);
         return "pedido/home";
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public String onIllegalArgumentExceptions(){
+        return "redirect:/";
     }
 }
