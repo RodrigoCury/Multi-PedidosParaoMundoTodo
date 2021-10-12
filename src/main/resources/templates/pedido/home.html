@@ -7,10 +7,10 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-primary d-flex justify-content-between mb-3 p-2 rounded-1">
         <a class="navbar-brand" href="#">Meus Produtos</a>
         <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="/?query=all">Todos</a>
-            <a class="nav-item nav-link" href="/?query=waiting">Aguardando</a>
-            <a class="nav-item nav-link" href="/?query=approved">Aprovado</a>
-            <a class="nav-item nav-link" href="/?query=delivered">Entregue</a>
+            <a th:classappend="${status} == null ?  'active' : ''" class="nav-item nav-link" href="/">Todos</a>
+            <a th:classappend="${status} == 'aguardando' ?  'active' : ''" class="nav-item nav-link" href="/aguardando">Aguardando</a>
+            <a th:classappend="${status} == 'aprovado' ?  'active' : ''" class="nav-item nav-link" href="/aprovado">Aprovado</a>
+            <a th:classappend="${status} == 'entregue' ?  'active' : ''" class="nav-item nav-link" href="/entregue">Entregue</a>
         </div>
         <a href="/pedido/formulario"><button type="button" class="btn btn-info" style="color: white;">Novo</button></a>
     </nav>
@@ -32,8 +32,8 @@
           <div class="row">
               <div class="col-12 col-sm-8">
                   <div class="row">
-                      <div class="col-md-6">Valor: <span th:text="${pedido.valor}"/></div>
-                      <div class="col-md-6">Data de Entrega: <span th:text="${pedido.dataEntrega}"/></div>
+                      <div class="col-md-6">Valor: <span th:if="${pedido.valor != null}" th:text="${'R$ ' + #numbers.formatDecimal(pedido.valor,3,'POINT',2, 'COMMA')}"/></div>
+                      <div class="col-md-6">Data de Entrega: <span th:if="${pedido.dataEntrega != null}" th:text="${#temporals.format(pedido.dataEntrega, 'dd/MM/yy')}"/></div>
                   </div>
                   <div>
                       <textarea class="form-control" th:text="${pedido.descricao}" />
