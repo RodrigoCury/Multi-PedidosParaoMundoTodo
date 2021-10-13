@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}"></head>
+<body>
+<div th:replace="~{base :: header}"></div>
+<div class="container">
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary d-flex justify-content-between mb-3 p-2 rounded-1">
+        <a class="navbar-brand" href="#">Meus Produtos</a>
+        <div class="navbar-nav">
+            <a th:classappend="${status} == null ?  'active' : ''" class="nav-item nav-link" th:href="@{/usuario/pedidos}">Todos</a>
+            <a th:classappend="${status} == 'aguardando' ?  'active' : ''" class="nav-item nav-link" th:href="@{/usuario/pedidos/aguardando}">Aguardando</a>
+            <a th:classappend="${status} == 'aprovado' ?  'active' : ''" class="nav-item nav-link" th:href="@{/usuario/pedidos/aprovado}">Aprovado</a>
+            <a th:classappend="${status} == 'entregue' ?  'active' : ''" class="nav-item nav-link" th:href="@{/usuario/pedidos/entregue}">Entregue</a>
+        </div>
+        <a th:href="@{/pedido/formulario}" class="btn btn-info" style="color: white;">Novo</a>
+    </nav>
+
+    <div class="card mb-2" th:each="pedido : ${pedidos}">
+        <th:block th:switch="${pedido.status.name()}">
+            <div th:case="'AGUARDANDO'" class="card-header alert alert-warning">
+                <a th:href="${pedido.urlDoProduto}" th:text="${pedido.nome}" />
+            </div>
+            <div th:case="'APROVADO'" class="card-header alert alert-success">
+                <a th:href="${pedido.urlDoProduto}" th:text="${pedido.nome}" />
+            </div>
+            <div th:case="'ENTREGUE'" class="card-header alert alert-dark">
+                <a th:href="${pedido.urlDoProduto}" th:text="${pedido.nome}" />
+            </div>
+        </th:block>
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-sm-8">
+                    <div class="row">
+                        <div class="col-md-6">Valor: <span th:if="${pedido.valor != null}" th:text="${'R$ ' + #numbers.formatDecimal(pedido.valor,3,'POINT',2, 'COMMA')}"/></div>
+                        <div class="col-md-6">Data de Entrega: <span th:if="${pedido.dataEntrega != null}" th:text="${#temporals.format(pedido.dataEntrega, 'dd/MM/yy')}"/></div>
+                    </div>
+                    <div>
+                        <textarea class="form-control" th:text="${pedido.descricao}" />
+                    </div>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <img class="img-thumbnail" th:src="${pedido.urlImagem}" alt=""/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
