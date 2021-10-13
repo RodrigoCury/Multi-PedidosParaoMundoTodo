@@ -16,8 +16,12 @@ import java.util.List;
 @RequestMapping("/")
 public class HomeController {
 
+    private PedidoRepository pedidoRepository;
+
     @Autowired
-    PedidoRepository pedidoRepository;
+    public void setInjectedRepo(PedidoRepository pedidoRepository){
+        this.pedidoRepository = pedidoRepository;
+    }
 
     @GetMapping
     public String home(Model model, Principal principal){

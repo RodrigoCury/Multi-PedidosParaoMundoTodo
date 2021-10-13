@@ -14,8 +14,12 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class ApiPedidoController {
 
+    private PedidoRepository pedidoRepository;
+
     @Autowired
-    PedidoRepository pedidoRepository;
+    public void SetInjectedRepo(PedidoRepository pedidoRepository){
+        this.pedidoRepository = pedidoRepository;
+    }
 
     @PostMapping("/pedidos")
     public ResponseEntity<String> adicionaPedidos(@RequestBody Pedido pedido){

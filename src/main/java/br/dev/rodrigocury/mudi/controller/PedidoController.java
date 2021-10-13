@@ -18,11 +18,15 @@ import java.security.Principal;
 @Controller
 @RequestMapping("/pedido")
 public class PedidoController {
-    @Autowired
-    PedidoRepository pedidoRepository;
+
+    private PedidoRepository pedidoRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    UserRepository userRepository;
+    public void setInjection(UserRepository userRepository, PedidoRepository pedidoRepository){
+        this.userRepository = userRepository;
+        this.pedidoRepository = pedidoRepository;
+    }
 
     @GetMapping("/formulario")
     public String formularioCadastro(RequestNovoPedido novoPedido){
