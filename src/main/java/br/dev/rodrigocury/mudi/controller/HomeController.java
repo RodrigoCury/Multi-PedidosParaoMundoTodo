@@ -19,21 +19,13 @@ public class HomeController {
     private PedidoRepository pedidoRepository;
 
     @Autowired
-    public void setInjectedRepo(PedidoRepository pedidoRepository){
+    public void setPedidoRepository(PedidoRepository pedidoRepository){
         this.pedidoRepository = pedidoRepository;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public String home(Model model, Principal principal){
-        model.addAttribute("pedidos", pedidoRepository.findAllByUser(new User(principal.getName())));
-        return "pedido/home";
-    }
-
-    @GetMapping("/{status}")
-    public String filtrarPorStatus(@PathVariable(value = "status", required = true) String status, Model model, Principal principal){
-        List<Pedido> pedidos = pedidoRepository.findAllByUserAndStatus(new User(principal.getName()),StatusPedido.valueOf(status.toUpperCase()));
-        model.addAttribute("status", status.toLowerCase());
-        model.addAttribute("pedidos", pedidos);
+        model.addAttribute("pedidos", pedidoRepository.findAllByStatus(StatusPedido.ENTREGUE));
         return "pedido/home";
     }
 
@@ -41,4 +33,5 @@ public class HomeController {
     public String onIllegalArgumentExceptions(){
         return "redirect:/";
     }
+
 }
