@@ -1,16 +1,24 @@
-<head th:fragment="head">
+<head th:fragment="head" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
   <meta charset="UTF-8">
   <title>Home</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link th:href="@{/style/main.css}" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
+  <style>
+    .logo-container {
+      background: #31D2F2;
+      color: white;
+    }
+  </style>
 </head>
 
 <div th:fragment="header" class="logo-container mb-3 p-3 ">
   <div class="container d-flex justify-content-between align-items-center">
-    <span style='font-size: 2em; font-family: "Handlee",serif';>mudi</span>
-    <span>Login</span>
+    <a href="/" class="text-decoration-none link-light" style='font-size: 2em; font-family: "Handlee",serif';>mudi</a>
+    <a href="/login" class="btn btn-light" sec:authorize="!isAuthenticated()">login</a>
+    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+      <button href="/logout" class="btn btn-light" type="submit">logout</button>
+    </form>
   </div>
 </div>
