@@ -20,6 +20,9 @@ public class Pedido {
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
     public Pedido() {
     }
 
@@ -32,13 +35,15 @@ public class Pedido {
         this.urlImagem = urlImagem;
     }
 
-    public Pedido(String nome, String urlDoProduto, String urlImagem, String descricao, StatusPedido status) {
+    public Pedido(String nome, String urlDoProduto, String urlImagem, String descricao, StatusPedido status, User user) {
         this.nome = nome;
         this.urlDoProduto = urlDoProduto;
         this.descricao = descricao;
         this.urlImagem = urlImagem;
         this.status = status;
+        this.user = user;
     }
+
 
     public Integer getId() {
         return id;
@@ -103,4 +108,13 @@ public class Pedido {
     public void setStatus(StatusPedido status) {
         this.status = status;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }
