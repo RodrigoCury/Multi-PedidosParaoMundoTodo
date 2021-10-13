@@ -18,19 +18,19 @@ public class ApiPedidoController {
     PedidoRepository pedidoRepository;
 
     @PostMapping("/pedidos")
-    public ResponseEntity adicionaPedidos(@RequestBody Pedido pedido){
+    public ResponseEntity<String> adicionaPedidos(@RequestBody Pedido pedido){
         pedidoRepository.save(pedido);
         return ResponseEntity.ok("OK");
     }
 
     @GetMapping("/pedidos")
-    public ResponseEntity respondePedidos(){
+    public ResponseEntity<List<Pedido>> respondePedidos(){
         List<Pedido> pedidos = (List<Pedido>) pedidoRepository.findAll();
         return ResponseEntity.ok(pedidos);
     }
 
     @DeleteMapping("/pedidos/{id}")
-    public ResponseEntity deletaProduto(@PathVariable("id") Integer id){
+    public ResponseEntity<String> deletaProduto(@PathVariable("id") Integer id){
         Pedido pedidoADeletar = new Pedido();
         pedidoADeletar.setId(id);
         pedidoRepository.delete(pedidoADeletar);
@@ -38,12 +38,12 @@ public class ApiPedidoController {
     }
 
     @PutMapping("/pedidos/{id}")
-    public ResponseEntity atualizaProduto(@PathVariable("id") Integer id, @RequestBody Pedido pedido){
+    public ResponseEntity<Pedido> atualizaProduto(@PathVariable("id") Integer id, @RequestBody Pedido pedido){
         Optional<Pedido> pedidoNoDB = pedidoRepository.findById(id);
         if(pedidoNoDB.isPresent()){
             pedido.setId(id);
             pedidoRepository.save(pedido);
-            return ResponseEntity.ok("Alterado");
+            return ResponseEntity.ok(pedido);
         } else {
             return ResponseEntity.notFound().build();
         }
