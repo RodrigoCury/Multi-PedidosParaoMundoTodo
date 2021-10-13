@@ -1,16 +1,17 @@
 package br.dev.rodrigocury.mudi.controller;
 
-import br.dev.rodrigocury.mudi.model.Pedido;
 import br.dev.rodrigocury.mudi.model.StatusPedido;
-import br.dev.rodrigocury.mudi.model.User;
 import br.dev.rodrigocury.mudi.repository.PedidoRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -24,8 +25,9 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String home(Model model, Principal principal){
-        model.addAttribute("pedidos", pedidoRepository.findAllByStatus(StatusPedido.ENTREGUE));
+    public String home(Model model, Principal principal, @RequestParam(required = false, name = "page") Integer page){
+        PageRequest pageRequest = PageRequest.of(page != null? page : 0, 2, Sort.by("dataEntrega"));
+        model.addAttribute("pedidos", pedidoRepository.findAllByStatus(StatusPedido.ENTREGUE, pageRequest));
         return "pedido/home";
     }
 
