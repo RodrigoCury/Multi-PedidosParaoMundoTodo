@@ -4,6 +4,7 @@ import br.dev.rodrigocury.mudi.dtos.RequestNovoPedido;
 import br.dev.rodrigocury.mudi.model.Pedido;
 import br.dev.rodrigocury.mudi.model.User;
 import br.dev.rodrigocury.mudi.repository.PedidoRepository;
+import br.dev.rodrigocury.mudi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -20,6 +21,9 @@ public class PedidoController {
     @Autowired
     PedidoRepository pedidoRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     @GetMapping("/formulario")
     public String formularioCadastro(RequestNovoPedido novoPedido){
         return "pedido/formulario-pedido";
@@ -29,7 +33,8 @@ public class PedidoController {
     public String cadastraProduto(@Valid RequestNovoPedido novoPedido, BindingResult bindingResult, Principal principal){
         if(bindingResult.hasErrors())
             return "pedido/formulario-pedido";
-        Pedido pedido = novoPedido.toPedido(new User(principal.getName()));
+        User user = userRepository.findByUsername(principal.getName());
+        Pedido pedido = novoPedido.toPedido(user);
         pedidoRepository.save(pedido);
         return "pedido/home";
     }
