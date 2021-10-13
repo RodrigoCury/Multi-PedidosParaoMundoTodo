@@ -15,10 +15,13 @@
 
 <div th:fragment="header" class="logo-container mb-3 p-3 ">
   <div class="container d-flex justify-content-between align-items-center">
-    <a href="/" class="text-decoration-none link-light" style='font-size: 2em; font-family: "Handlee",serif';>mudi</a>
-    <a href="/login" class="btn btn-light" sec:authorize="!isAuthenticated()">login</a>
-    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
-      <button href="/logout" class="btn btn-light" type="submit">logout</button>
-    </form>
+    <a th:href="@{/}" class="text-decoration-none link-light" style='font-size: 2em; font-family: "Handlee",serif';>mudi</a>
+    <div class="d-flex justify-content-between align-items-center">
+      <a th:href="@{/login}" class="btn btn-light" sec:authorize="!isAuthenticated()">login</a>
+      <a th:href="@{usuario/pedidos}" class="btn-light btn m-2" sec:authorize="isAuthenticated()">Meus Pedidos</a>
+      <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+        <button th:href="@{/logout}" class="btn btn-light" type="submit">logout</button>
+      </form>
+    </div>
   </div>
 </div>
