@@ -9,7 +9,7 @@
         </div>
 
         <div class="card">
-            <form th:object="${requestNovoPedido}" class="card-body" action="/pedido/formulario" method="post">
+            <form th:object="${requestNovoPedido}" class="card-body" th:action="@{/pedido/formulario}" method="post">
                 <div class="form-group">
                     <label class="form-label" for="nome">Produto</label>
                     <input th:field="*{nome}" th:errorclass="is-invalid" class="form-control form-control-sm" name="nome" id="nome" type="text" placeholder="nome do produto">
