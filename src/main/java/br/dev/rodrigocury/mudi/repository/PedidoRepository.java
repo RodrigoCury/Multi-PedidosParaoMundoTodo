@@ -16,6 +16,7 @@ import java.util.List;
 
 @Repository
 public interface PedidoRepository extends CrudRepository<Pedido, Integer>, PagingAndSortingRepository<Pedido, Integer> {
+
     List<Pedido> findAllByUser(User user);
 
     @Query("select p from Pedido p join p.user u where u.username = :user and p.status = :status")
@@ -24,4 +25,8 @@ public interface PedidoRepository extends CrudRepository<Pedido, Integer>, Pagin
     @Cacheable("delivered")
     @Query("select p from Pedido p where p.status = :status")
     List<Pedido> findAllByStatus(@Param("status") StatusPedido valueOf, Pageable pageable);
+
+    @Cacheable("delivered")
+    @Query("select p from Pedido p where p.status = :status")
+    List<Pedido> findAllByStatus(@Param("status") StatusPedido valueOf);
 }
