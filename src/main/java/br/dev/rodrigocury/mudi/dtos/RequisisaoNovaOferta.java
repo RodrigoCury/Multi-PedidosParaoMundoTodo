@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 public class RequisisaoNovaOferta {
 
-  private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+  private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
   private Integer pedidoId;
 
@@ -18,7 +18,7 @@ public class RequisisaoNovaOferta {
 
   private String dataEntrega;
 
-  private String Comentario;
+  private String comentario;
 
   public Integer getPedidoId() {
     return pedidoId;
@@ -45,11 +45,11 @@ public class RequisisaoNovaOferta {
   }
 
   public String getComentario() {
-    return Comentario;
+    return comentario;
   }
 
   public void setComentario(String comentario) {
-    Comentario = comentario;
+    this.comentario = comentario;
   }
 
   public Oferta toOferta(Pedido pedido) throws IllegalArgumentException{
