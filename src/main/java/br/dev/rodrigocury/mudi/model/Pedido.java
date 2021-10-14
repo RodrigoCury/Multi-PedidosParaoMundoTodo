@@ -2,10 +2,12 @@ package br.dev.rodrigocury.mudi.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Pedido {
@@ -26,6 +28,10 @@ public class Pedido {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private User user;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido", fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Oferta> ofertaList;
 
     public Pedido() {
     }
@@ -121,4 +127,7 @@ public class Pedido {
         this.user = user;
     }
 
+    public List<Oferta> getOfertaList() {
+        return ofertaList;
+    }
 }
