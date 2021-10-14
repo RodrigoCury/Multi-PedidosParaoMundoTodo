@@ -1,5 +1,8 @@
 package br.dev.rodrigocury.mudi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -21,6 +24,7 @@ public class Pedido {
     private StatusPedido status;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private User user;
 
     public Pedido() {
