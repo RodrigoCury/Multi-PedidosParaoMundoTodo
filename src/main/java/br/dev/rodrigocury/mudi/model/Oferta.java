@@ -32,6 +32,9 @@ public class Oferta {
     this.pedido = pedido;
   }
 
+  public Oferta() {
+  }
+
   public Long getId() {
     return id;
   }
