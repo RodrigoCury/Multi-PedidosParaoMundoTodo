@@ -1,8 +1,6 @@
 package br.dev.rodrigocury.mudi.model;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

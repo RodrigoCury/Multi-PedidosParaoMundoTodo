@@ -1,44 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="~{base :: head}"></head>
-<body>
+  <head th:replace="~{base :: head}"></head>
+  <body>
     <div th:replace="~{base :: header}"></div>
     <div class="container">
-        <div class="jumbotron mb-0">
-            <h1>Novo Pedido</h1>
-        </div>
+      <div class="jumbotron mb-0">
+        <h1>Novo Pedido</h1>
+      </div>
 
-        <div class="card">
-            <form th:object="${requestNovoPedido}" class="card-body" th:action="@{/pedido/formulario}" method="post">
-                <div class="form-group">
-                    <label class="form-label" for="nome">Produto</label>
-                    <input th:field="*{nome}" th:errorclass="is-invalid" class="form-control form-control-sm" name="nome" id="nome" type="text" placeholder="nome do produto">
-                    <p class="invalid-feedback" role="alert" th:errors="*{nome}"></p>
-                </div>
+      <div class="card">
+        <form
+          th:object="${requestNovoPedido}"
+          class="card-body"
+          th:action="@{/pedido/formulario}"
+          method="post"
+        >
+          <div class="form-group">
+            <label class="form-label" for="nome">Produto</label>
+            <input
+              th:field="*{nome}"
+              th:errorclass="is-invalid"
+              class="form-control form-control-sm"
+              name="nome"
+              id="nome"
+              type="text"
+              placeholder="nome do produto"
+            />
+            <p class="invalid-feedback" role="alert" th:errors="*{nome}"></p>
+          </div>
 
-                <div class="form-group">
-                    <label class="form-label" for="urlDoProduto">Url Produto</label>
-                    <input th:field="*{urlDoProduto}" th:errorclass="is-invalid" class="form-control form-control-sm" name="urlDoProduto" id="urlDoProduto" type="url" placeholder="URL do Produto">
-                    <p class="invalid-feedback" role="alert" th:errors="*{urlDoProduto}"></p>
-                </div>
+          <div class="form-group">
+            <label class="form-label" for="urlDoProduto">Url Produto</label>
+            <input
+              th:field="*{urlDoProduto}"
+              th:errorclass="is-invalid"
+              class="form-control form-control-sm"
+              name="urlDoProduto"
+              id="urlDoProduto"
+              type="url"
+              placeholder="URL do Produto"
+            />
+            <p
+              class="invalid-feedback"
+              role="alert"
+              th:errors="*{urlDoProduto}"
+            ></p>
+          </div>
 
-                <div class="form-group">
-                    <label class="form-label" for="urlImagem">Url Imagem do Produto</label>
-                    <input th:field="*{urlImagem}" th:errorclass="is-invalid" class="form-control form-control-sm" name="urlImagem" id="urlImagem" type="url" placeholder="URL da imagem">
-                    <p class="invalid-feedback" role="alert" th:errors="*{urlImagem}"></p>
-                </div>
+          <div class="form-group">
+            <label class="form-label" for="urlImagem"
+              >Url Imagem do Produto</label
+            >
+            <input
+              th:field="*{urlImagem}"
+              th:errorclass="is-invalid"
+              class="form-control form-control-sm"
+              name="urlImagem"
+              id="urlImagem"
+              type="url"
+              placeholder="URL da imagem"
+            />
+            <p
+              class="invalid-feedback"
+              role="alert"
+              th:errors="*{urlImagem}"
+            ></p>
+          </div>
 
-                <div class="form-group">
-                    <label class="form-label" for="descricao">Descrição</label>
-                    <textarea th:field="*{descricao}" class="form-control form-control-sm" name="descricao" id="descricao" placeholder="Adicione detalhes importantes para ajudar o comprado"></textarea>
-                </div>
+          <div class="form-group">
+            <label class="form-label" for="descricao">Descrição</label>
+            <textarea
+              th:field="*{descricao}"
+              class="form-control form-control-sm"
+              name="descricao"
+              id="descricao"
+              placeholder="Adicione detalhes importantes para ajudar o comprado"
+            ></textarea>
+          </div>
 
-                <button class="btn btn-success mt-2" type="submit">Cadastrar</button>
-
-            </form>
-
-        </div>
-
+          <button class="btn btn-success mt-2" type="submit">Cadastrar</button>
+        </form>
+      </div>
     </div>
-</body>
+  </body>
 </html>
