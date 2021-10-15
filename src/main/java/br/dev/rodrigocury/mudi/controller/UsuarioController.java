@@ -16,7 +16,7 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
-@RequestMapping("/usuario")
+@RequestMapping("/usuario/pedidos")
 public class UsuarioController {
 
     private PedidoRepository pedidoRepository;
@@ -26,15 +26,15 @@ public class UsuarioController {
         this.pedidoRepository = pedidoRepository;
     }
 
-    @GetMapping("/pedidos")
+    @GetMapping
     public String home(Model model, Principal principal){
         model.addAttribute("pedidos", pedidoRepository.findAllByUser(new User(principal.getName())));
         return "usuario/home";
     }
 
-    @GetMapping("pedidos/{status}")
+    @GetMapping("/{status}")
     public String filtrarPorStatus(@PathVariable(value = "status", required = true) String status, Model model, Principal principal){
-        List<Pedido> pedidos = pedidoRepository.findAllByUserAndStatus(new User(principal.getName()), StatusPedido.valueOf(status.toUpperCase()));
+        List<Pedido> pedidos = pedidoRepository.findAllByUserAndStatus(principal.getName(), StatusPedido.valueOf(status.toUpperCase()));
         model.addAttribute("status", status.toLowerCase());
         model.addAttribute("pedidos", pedidos);
         return "usuario/home";

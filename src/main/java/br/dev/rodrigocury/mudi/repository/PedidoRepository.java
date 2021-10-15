@@ -18,7 +18,7 @@ public interface PedidoRepository extends PagingAndSortingRepository<Pedido, Int
     List<Pedido> findAllByUser(User user);
 
     @Query("select p from Pedido p join p.user u where u.username = :user and p.status = :status")
-    List<Pedido> findAllByUserAndStatus(@Param("user")User user, @Param("status") StatusPedido statusPedido);
+    List<Pedido> findAllByUserAndStatus(@Param("user")String name, @Param("status") StatusPedido statusPedido);
 
     @Cacheable("delivered")
     @Query("select p from Pedido p where p.status = :status")
