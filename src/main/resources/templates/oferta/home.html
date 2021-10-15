@@ -8,20 +8,8 @@
   <body onload="onLoad()">
     <div th:replace="~{base :: header}"></div>
     <div class="container" id="ofertas">
-      <div
-        class="
-          container-fluid
-          bg-dark
-          p-5
-          rounded-2
-          mb-3
-          d-flex
-          flex-column
-          justify-content-around
-          align-items-center
-          p-5
-        "
-      >
+      <div class=" container-fluid bg-dark p-5 rounded-2 mb-3 d-flex flex-columnjustify-content- 
+          align-items-center p-5 " >
         <h1 class="display-4 text-info">Faça ofertas para entregas</h1>
       </div>
 
@@ -37,52 +25,36 @@
                 <label>
                   Descrição
                   <textarea class="form-control" disabled>
-{{pedido.descricao}}</textarea
-                  >
+                    {{pedido.descricao}}
+                  </textarea>
                 </label>
               </div>
               <div class="row mt-3">
-                <div class="col-md-6">
+                <div class="col-md-6 input-group has-validation">
                   <label
                     >Valor:
-                    <input class="form-control" v-model="pedido.valor" />
+                    <input class="form-control" v-bind:class="{'is-invalid':pedido.erros.valor !==''}" v-model="pedido.valor" />
                   </label>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 input-group has-validation">
                   <label
                     >Data de Entrega:
-                    <input
-                      class="form-control"
-                      v-model="pedido.dataEntrega"
-                      type="date"
-                    />
+                    <input class="form-control" v-bind:class="{'is-invalid':pedido.erros.dataEntrega !==''}" v-model="pedido.dataEntrega" type="date" />
                   </label>
                 </div>
               </div>
-              <div class="row mt-3">
+              <div class="row mt-3 input-group">
                 <label>
                   Comentar:
-                  <textarea
-                    class="form-control"
-                    v-model="pedido.comentario"
-                  ></textarea>
+                  <textarea class="form-control" v-model="pedido.comentario" ></textarea>
                 </label>
               </div>
-              <button
-                v-on:click="enviarOferta(pedido)"
-                v-bind:id="pedido.id"
-                class="btn btn-primary mt-3"
-              >
+              <button v-on:click="enviarOferta(pedido)" v-bind:id="pedido.id" class="btn btn-primary mt-3" >
                 Enviar Oferta
               </button>
             </div>
             <div class="col-12 col-sm-4">
-              <img
-                class="img-thumbnail"
-                src=""
-                v-bind:src="pedido.urlImagem"
-                alt=""
-              />
+              <img class="img-thumbnail" src="" v-bind:src="pedido.urlImagem" alt="" />
             </div>
           </div>
         </div>
@@ -101,12 +73,19 @@
             axios
               .get("http://localhost:80/api/pedidos/aguardando")
               .then((response) => {
-                console.log(response);
+                response.data.forEach(data => data.erros = {
+                  valor: '',
+                  dataEntrega: ''
+                })
                 this.pedidos = response.data;
               });
           },
           methods: {
             enviarOferta: (pedido) => {
+              pedido.erros = {
+			    	  			valor: '',
+			    	  			dataEntrega: ''
+			    	  		};
               const requestObject = {
                 pedidoId: pedido.id,
                 valor: pedido.valor,
@@ -123,12 +102,10 @@
                   btn.classList.add("btn-success");
                   btn.innerText = "Oferta Enviada";
                 })
-                .catch(() => {
-                  const btn = document.getElementById(`${pedido.id}`);
-                  btn.classList.remove("btn-primary");
-                  btn.disabled = true;
-                  btn.classList.add("btn-warning");
-                  btn.innerText = "Houve um Erro";
+                .catch((error) => {
+                  error.response.data.errors.forEach((e) => {
+                    pedido.erros[e.field] = error.defaultMessage;
+                  });
                 });
             },
           },

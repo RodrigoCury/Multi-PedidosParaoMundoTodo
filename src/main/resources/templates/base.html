@@ -39,6 +39,12 @@
           >login</a
         >
         <a
+          th:href="@{oferta}"
+          class="btn-light btn m-2"
+          sec:authorize="isAuthenticated()"
+          >Faça uma Oferta</a
+        >
+        <a
           th:href="@{usuario/pedidos}"
           class="btn-light btn m-2"
           sec:authorize="isAuthenticated()"
