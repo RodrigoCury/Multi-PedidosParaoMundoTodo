@@ -1,31 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="~{base :: head}"></head>
-<body>
+  <head th:replace="~{base :: head}"></head>
+  <body>
     <div th:replace="~{base :: header}"></div>
     <div class="container">
-        <div th:if="${param.logout}" class="alert-danger alert">
-            <h3>Você foi deslogado</h3>
+      <div th:if="${param.logout}" class="alert-danger alert">
+        <h3>Você foi deslogado</h3>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h1>Login</h1>
         </div>
-        <div class="card">
-            <div class="card-header">
-                <h1>Login </h1>
-            </div>
-            <form class="card-body" th:action="@{/login}" method="post">
-                <div class="mb-3">
-                    <input type="text" name="username" placeholder="Usuário" class="form-control" aria-describedby="userHelp">
-                    <div id="userHelp" class="form-text">Digite o seu usuário</div>
-                </div>
-                <div class="mb-3">
-                    <input type="password" name="password" placeholder="Senha" class="form-control" aria-describedby="passHelp">
-                    <div id="passHelp" class="form-text">Digite a sua senha</div>
-                </div>
-                <div class="alert alert-warning" th:if="${param.error}">
-                    <i>Usuário e/ou senha Inválido(s)!</i>
-                </div>
-                <button type="submit" class="btn btn-success" value="">Entrar</button>
-            </form>
-        </div>
+        <form class="card-body" th:action="@{/login}" method="post">
+          <div class="mb-3">
+            <input
+              type="text"
+              name="username"
+              placeholder="Usuário"
+              class="form-control"
+              aria-describedby="userHelp"
+            />
+            <div id="userHelp" class="form-text">Digite o seu usuário</div>
+          </div>
+          <div class="mb-3">
+            <input
+              type="password"
+              name="password"
+              placeholder="Senha"
+              class="form-control"
+              aria-describedby="passHelp"
+            />
+            <div id="passHelp" class="form-text">Digite a sua senha</div>
+          </div>
+          <div class="alert alert-warning" th:if="${param.error}">
+            <i>Usuário e/ou senha Inválido(s)!</i>
+          </div>
+          <button type="submit" class="btn btn-success" value="">Entrar</button>
+        </form>
+      </div>
     </div>
-</body>
+  </body>
 </html>

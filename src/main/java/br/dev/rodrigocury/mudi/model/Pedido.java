@@ -1,8 +1,12 @@
 package br.dev.rodrigocury.mudi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Pedido {
@@ -21,12 +25,18 @@ public class Pedido {
     private StatusPedido status;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private User user;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido", fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<Oferta> ofertaList;
 
     public Pedido() {
     }
 
-    public Pedido(String nome, BigDecimal valor, LocalDate dataEntrega, String urlDoProduto, String descricao, String urlImagem) {
+    public Pedido(String nome, BigDecimal valor, LocalDate dataEntrega, String urlDoProduto, String descricao,
+            String urlImagem) {
         this.nome = nome;
         this.valor = valor;
         this.dataEntrega = dataEntrega;
@@ -35,7 +45,8 @@ public class Pedido {
         this.urlImagem = urlImagem;
     }
 
-    public Pedido(String nome, String urlDoProduto, String urlImagem, String descricao, StatusPedido status, User user) {
+    public Pedido(String nome, String urlDoProduto, String urlImagem, String descricao, StatusPedido status,
+            User user) {
         this.nome = nome;
         this.urlDoProduto = urlDoProduto;
         this.descricao = descricao;
@@ -43,7 +54,6 @@ public class Pedido {
         this.status = status;
         this.user = user;
     }
-
 
     public Integer getId() {
         return id;
@@ -117,4 +127,7 @@ public class Pedido {
         this.user = user;
     }
 
+    public List<Oferta> getOfertaList() {
+        return ofertaList;
+    }
 }
